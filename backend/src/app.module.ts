@@ -1,6 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './common/entities/user.entity';
+import { Task } from './common/entities/task.entity';
+import { Comment } from './common/entities/comment.entity';
+import { ProgressUpdate } from './common/entities/progress-update.entity';
+import { Review } from './common/entities/review.entity';
+import { BugReport } from './common/entities/bug-report.entity';
 
 @Module({
   imports: [
@@ -16,7 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        entities: [User, Task, Comment, ProgressUpdate, Review, BugReport],
         synchronize: true,
       }),
       inject: [ConfigService],
