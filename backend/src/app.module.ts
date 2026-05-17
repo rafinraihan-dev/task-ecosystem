@@ -9,6 +9,7 @@ import { ProgressUpdate } from './common/entities/progress-update.entity';
 import { Review } from './common/entities/review.entity';
 import { BugReport } from './common/entities/bug-report.entity';
 import { AdminModule } from './admin/admin.module';
+import { LeadModule } from './lead/lead.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AdminModule } from './admin/admin.module';
     }),
     AuthModule,
     AdminModule,
+    LeadModule,
   ],
 })
 export class AppModule {}
