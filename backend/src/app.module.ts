@@ -8,6 +8,7 @@ import { Comment } from './common/entities/comment.entity';
 import { ProgressUpdate } from './common/entities/progress-update.entity';
 import { Review } from './common/entities/review.entity';
 import { BugReport } from './common/entities/bug-report.entity';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { BugReport } from './common/entities/bug-report.entity';
       inject: [ConfigService],
     }),
     AuthModule,
+    AdminModule,
   ],
 })
 export class AppModule {}
