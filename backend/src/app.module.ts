@@ -10,6 +10,7 @@ import { Review } from './common/entities/review.entity';
 import { BugReport } from './common/entities/bug-report.entity';
 import { AdminModule } from './admin/admin.module';
 import { LeadModule } from './lead/lead.module';
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { LeadModule } from './lead/lead.module';
     AuthModule,
     AdminModule,
     LeadModule,
+    EmployeeModule,
   ],
 })
 export class AppModule {}
