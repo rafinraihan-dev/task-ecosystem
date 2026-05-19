@@ -246,62 +246,98 @@ export default function AdminDashboard() {
          {/* Task button active hoile then kaj korbe */}
 
         {activeTab === 'tasks' && (
+
           <div className="space-y-6">
+
             <div className={cardClass}>
+
               <h2 className="text-lg font-bold text-white mb-4">Create New Task</h2>
+
               <form onSubmit={handleCreateTask} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 <input type="text" placeholder="Task Title" value={taskForm.title} onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })} className={inputClass} required />
+
                 <input type="date" value={taskForm.deadline} onChange={(e) => setTaskForm({ ...taskForm, deadline: e.target.value })} className={inputClass} />
+
                 <textarea placeholder="Task Description" value={taskForm.description} onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })} className={`${inputClass} md:col-span-2`} required />
+
                 <select value={taskForm.priority} onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value })} className={selectClass}>
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
                   <option value="high">High</option>
                 </select>
+
                 <select value={taskForm.status} onChange={(e) => setTaskForm({ ...taskForm, status: e.target.value })} className={selectClass}>
                   <option value="pending">Pending</option>
                   <option value="in_progress">In Progress</option>
                   <option value="completed">Completed</option>
                 </select>
+
                 <div className="md:col-span-2">
+
                   <label className="block text-slate-300 text-sm font-medium mb-1">Assign Employees</label>
+
                   <select multiple value={taskForm.assignedEmployeeIds} onChange={(e) => setTaskForm({ ...taskForm, assignedEmployeeIds: Array.from(e.target.selectedOptions, (o) => o.value) })} className={`${selectClass} h-28`}>
+
                     {employees.map((emp) => (<option key={emp.id} value={emp.id}>{emp.name}</option>))}
+
                   </select>
+
                   <p className="text-xs text-slate-500 mt-1">Hold Ctrl to select multiple</p>
+
                 </div>
+
                 <button type="submit" className="md:col-span-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-medium">Create Task</button>
+
               </form>
             </div>
 
+            {/* Footer theke Edit click korle kaj hobe */}
+
             {editingTask && (
               <div className={`${cardClass} border-2 border-blue-500`}>
+
                 <h2 className="text-lg font-bold text-white mb-4">Edit Task</h2>
+
                 <form onSubmit={handleUpdateTask} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                   <input type="text" value={editingTask.title} onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })} className={inputClass} required />
+
                   <input type="date" value={editingTask.deadline ? editingTask.deadline.split('T')[0] : ''} onChange={(e) => setEditingTask({ ...editingTask, deadline: e.target.value })} className={inputClass} />
+
                   <textarea value={editingTask.description} onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })} className={`${inputClass} md:col-span-2`} required />
+
                   <select value={editingTask.priority} onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value })} className={selectClass}>
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                   </select>
+
                   <select value={editingTask.status} onChange={(e) => setEditingTask({ ...editingTask, status: e.target.value })} className={selectClass}>
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>
                     <option value="completed">Completed</option>
                     <option value="rejected">Rejected</option>
                   </select>
+
                   <button type="submit" className="bg-green-600 text-white py-2 rounded hover:bg-green-700 font-medium">Save Changes</button>
+
                   <button type="button" onClick={() => setEditingTask(null)} className="bg-slate-600 text-white py-2 rounded hover:bg-slate-500 font-medium">Cancel</button>
+
                 </form>
               </div>
             )}
 
+            {/* Ekhane footer section er kaj hobe .(All Task) */}
+
             <div className={cardClass}>
+
               <h2 className="text-lg font-bold text-white mb-4">All Tasks ({tasks.length})</h2>
+
               <div className="overflow-x-auto">
+
                 <table className="w-full text-sm">
+
                   <thead>
                     <tr className="bg-slate-700">
                       <th className="text-left p-3 text-slate-300">Title</th>
@@ -312,33 +348,55 @@ export default function AdminDashboard() {
                       <th className="text-left p-3 text-slate-300">Actions</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {tasks.map((t) => (
                       <tr key={t.id} className="border-t border-slate-700">
                         <td className="p-3 text-slate-200">{t.title}</td>
+
                         <td className="p-3">
                           <span className={`px-2 py-1 rounded text-xs font-medium ${t.priority === 'high' ? 'bg-red-900 text-red-300' : t.priority === 'medium' ? 'bg-yellow-900 text-yellow-300' : 'bg-green-900 text-green-300'}`}>{t.priority}</span>
                         </td>
+
                         <td className="p-3">
                           <span className={`px-2 py-1 rounded text-xs font-medium ${t.status === 'completed' ? 'bg-green-900 text-green-300' : t.status === 'in_progress' ? 'bg-blue-900 text-blue-300' : t.status === 'rejected' ? 'bg-red-900 text-red-300' : 'bg-slate-700 text-slate-300'}`}>{t.status.replace('_', ' ')}</span>
                         </td>
+
                         <td className="p-3 text-slate-300">{t.deadline ? new Date(t.deadline).toLocaleDateString() : 'No deadline'}</td>
                         <td className="p-3 text-slate-300">{t.assignedEmployees?.map((e) => e.name).join(', ') || 'None'}</td>
+
                         <td className="p-3">
                           <div className="flex gap-2">
                             <button onClick={() => setEditingTask(t)} className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700">Edit</button>
                             <button onClick={() => handleDeleteTask(t.id)} className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700">Delete</button>
                           </div>
                         </td>
+
                       </tr>
                     ))}
                   </tbody>
+
                 </table>
+
               </div>
             </div>
+
+
+
+
           </div>
         )}
+
+        {/* Task button er kaj shesh */}
       </div>
+
+      {/* Navbar Bad e full page er code ekhane */}
     </div>
+      
+
+    
+
   );
 }
+
+{/* Full Admin Dashboard Function er kaj shesh hoise */}
