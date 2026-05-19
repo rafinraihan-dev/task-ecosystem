@@ -294,29 +294,57 @@ export default function LeadDashboard() {
 
 
             <div style={{ background: '#2d1054', border: '1px solid #6b21a8', borderRadius: '12px', padding: '24px' }}>
+
               <h3 style={{ color: '#e9d5ff', fontWeight: 'bold', fontSize: '18px', marginBottom: '16px' }}>Comments ({comments.length})</h3>
+
               {comments.length === 0 ? <p style={{ color: '#a78bfa' }}>No comments yet. Select a task to view comments.</p> : (
+                
+
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
                   {comments.map(c => (
+
                     <div key={c.id} style={{ background: '#1a0533', border: '1px solid #6b21a8', borderRadius: '10px', padding: '16px' }}>
+
                       <p style={{ color: '#e9d5ff' }}>{c.content}</p>
+
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+
                         <p style={{ color: '#7c3aed', fontSize: '12px' }}>By {c.author?.name} — {new Date(c.createdAt).toLocaleDateString()}</p>
+
+                        {/* Comment er edit ar delete button */}
+
                         <div style={{ display: 'flex', gap: '8px' }}>
+
                           <button onClick={() => setEditingComment(c)} style={{ background: '#6d28d9', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '12px' }}>Edit</button>
+
                           <button onClick={() => handleDeleteComment(c.id)} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '12px' }}>Delete</button>
+
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
               )}
+
+
             </div>
+
+            {/* Footer er kaj shesh hoise ekhane */}
 
 
           </div>
         )}
+
+        {/* comment button click er kaj shesh   */}
       </div>
+
+        {/* Navbar bad e page layout    */}
+
     </div>
+
+        
   );
 }
+
+{/* Full page layout er kaj shesh   */}
