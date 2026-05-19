@@ -11,6 +11,7 @@ import { BugReport } from './common/entities/bug-report.entity';
 import { AdminModule } from './admin/admin.module';
 import { LeadModule } from './lead/lead.module';
 import { EmployeeModule } from './employee/employee.module';
+import { QaModule } from './qa/qa.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { EmployeeModule } from './employee/employee.module';
     AdminModule,
     LeadModule,
     EmployeeModule,
+    QaModule,
   ],
 })
 export class AppModule {}
